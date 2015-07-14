@@ -1,0 +1,1 @@
+/usr/bin/c++   -g    CMakeFiles/test_naonav.dir/test.cpp.o  -o sdk/bin/test_naonav  -L/home/crrl-user1/code_projects/robotlib/lib -rdynamic 
