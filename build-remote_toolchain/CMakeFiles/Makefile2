@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/crrl-user1/code_projects/nao_worktree/naonav/build-remo
 CMakeFiles/naonav.dir/all:
 	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/depend
 	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles  1 2 3
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles  1 2
 	@echo "Built target naonav"
 .PHONY : CMakeFiles/naonav.dir/all
 
@@ -69,7 +69,7 @@ all: CMakeFiles/naonav.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/naonav.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/naonav.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles 0
 .PHONY : CMakeFiles/naonav.dir/rule
@@ -103,7 +103,7 @@ clean: CMakeFiles/naonav.dir/clean
 CMakeFiles/test_naonav.dir/all:
 	$(MAKE) -f CMakeFiles/test_naonav.dir/build.make CMakeFiles/test_naonav.dir/depend
 	$(MAKE) -f CMakeFiles/test_naonav.dir/build.make CMakeFiles/test_naonav.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles  3
 	@echo "Built target test_naonav"
 .PHONY : CMakeFiles/test_naonav.dir/all
 

@@ -22,7 +22,6 @@ include_directories( ${Boost_INCLUDE_DIR} )
 set(_srcs
 	main.cpp
 	src/godzila.cpp
-	src/naopp.cpp
 )
 
 # Create a executable named naonav

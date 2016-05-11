@@ -1,6 +1,7 @@
 // Standard Libraries
 #include <iostream>
 #include <math.h>
+#include <time.h>
 #include <string>
 #include <stdlib.h>
 #include <pthread.h>
@@ -27,7 +28,6 @@
 // Robotlib Libraries
 #include <rlib_sensor.hpp>
 #include <godzila.hpp>
-#include <naopp.hpp>
 
 // Namespace Variables
 namespace po = boost::program_options;
@@ -49,7 +49,11 @@ void recordData(godzila::Planner * planner);
 void writeGodzilaConfig(const godzila::Planner* planner);
 bool readGodzilaConfig(po::options_description& desc, po::variables_map& vm);
 
+///*** File for logging GODZILA commands and goal range/bearing.
 #define GODZILA_LOG_FILENAME "godzila.log"
+
+///*** Projected Profile Joint Angles. ***///
+#define JOINT_ANGLE_FILENAME ../data/pp_optCost2_Angles1.txt
 
 ///*** Main Function ***///
 int main(int argc, char* argv[]) {
@@ -153,10 +157,6 @@ int main(int argc, char* argv[]) {
   
 	// Disable Collision Protection
 
-	naopp::testArmPose(argc, argv);
-	Lidar->stop();
-	exit(0);
-
 	// Head Pressed? Then stand.
 	while(memPrx.getData(frontButton) != AL::ALValue(1.0));
 
@@ -204,6 +204,9 @@ int main(int argc, char* argv[]) {
 				float ballRange = sqrt(pow(ballPose[0],2) + pow(ballPose[1],2));
 				float ballBearing = atan2(ballPose[1], ballPose[0]);
 				planner->updateGoal(ballRange, ballBearing);
+		    }
+		    else{
+		    	motionPrx.setAngles("HeadYaw", 0.0, 0.1);
 		    }
 			planner->plan(0);			
 			// Get movement command.
@@ -679,6 +682,9 @@ void * recordDataToFile(void * voidPlanner){
 	// Open log file.
 	std::ofstream godzilaLog(GODZILA_LOG_FILENAME);
 
+	// Start clock.
+	clock_t t0 = clock();
+
 	while(flag_recordData){
 		// Print the velocity command.
 		rlib::Vel speed = planner->getCommand();
@@ -692,6 +698,7 @@ void * recordDataToFile(void * voidPlanner){
 		std::cout << std::endl;
 
 		// Record the data to file.
+		godzilaLog << ((float)(clock() - t0))/CLOCKS_PER_SEC << ", ";
 		godzilaLog << speed.vx 	<< ", ";
 		godzilaLog << speed.wz 	<< ", ";
 		godzilaLog << goal[0] 	<< ", ";

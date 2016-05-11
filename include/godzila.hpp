@@ -28,6 +28,8 @@
 
 
 #define ROBOT_RADIUS_IN_METERS 		0.3
+// Distance in meters that the robot will stop from the goal.
+#define GOAL_STOPPING_RANGE 		0.3
 
 /*! \brief GODZILA namespace. */
 namespace godzila{
@@ -245,7 +247,7 @@ namespace godzila{
 		* \param[in] w 		The desired angular velocity.
 		* \return 			The linear velocity command in meters/second.
 		*/
-		float computeLinearVelcoity(float w);
+		float computeLinearVelocity(float w);
 
 		float _currentTime; /**< Current time in seconds. */
 

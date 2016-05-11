@@ -223,30 +223,6 @@ src/godzila.cpp.s:
 	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/src/godzila.cpp.s
 .PHONY : src/godzila.cpp.s
 
-src/naopp.o: src/naopp.cpp.o
-.PHONY : src/naopp.o
-
-# target to build an object file
-src/naopp.cpp.o:
-	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/src/naopp.cpp.o
-.PHONY : src/naopp.cpp.o
-
-src/naopp.i: src/naopp.cpp.i
-.PHONY : src/naopp.i
-
-# target to preprocess a source file
-src/naopp.cpp.i:
-	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/src/naopp.cpp.i
-.PHONY : src/naopp.cpp.i
-
-src/naopp.s: src/naopp.cpp.s
-.PHONY : src/naopp.s
-
-# target to generate assembly for a file
-src/naopp.cpp.s:
-	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/src/naopp.cpp.s
-.PHONY : src/naopp.cpp.s
-
 test.o: test.cpp.o
 .PHONY : test.o
 
@@ -291,9 +267,6 @@ help:
 	@echo "... src/godzila.o"
 	@echo "... src/godzila.i"
 	@echo "... src/godzila.s"
-	@echo "... src/naopp.o"
-	@echo "... src/naopp.i"
-	@echo "... src/naopp.s"
 	@echo "... test.o"
 	@echo "... test.i"
 	@echo "... test.s"

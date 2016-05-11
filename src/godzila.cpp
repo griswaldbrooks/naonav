@@ -24,6 +24,8 @@
 
 // Special includes.
 
+#define DEG2RAD(x) 		(M_PI/180.0)*x
+
 
 /*! \brief GODZILA namespace. */
 namespace godzila{
@@ -320,6 +322,9 @@ namespace godzila{
 
 		// Update the escape strategy.
 
+		// Pseudo straight line planner parameter.
+		bool goalInRange = false;
+
 		// Goal pose.
 		float goalRange, goalBearing;
 		// Use actual goal location
@@ -339,7 +344,7 @@ namespace godzila{
 		//std::cout << "Goal: (" << goalRange << ", " << goalBearing << ")" << std::endl;
 
 		// If we're at the goal, stay here.
-		if(goalRange < 0.4){
+		if(goalRange < GOAL_STOPPING_RANGE){
 			//std::cout << "At goal!" << std::endl;
 			// Set command.
 			_command.vx = 0;
@@ -359,54 +364,69 @@ namespace godzila{
 		computeAttractionVector(goalRange, goalBearing, attractVector);
 		computeInertiaVector(inertiaVector);
 
-		// // Compute direction.
-		// std::cout << "Goal Vector: ";
-		// std::cout << "(";
-		// std::cout << goalVector(0,0); std::cout << ", ";
-		// std::cout << goalVector(1,0); std::cout << ")";
-		// std::cout << std::endl;
 
-		// std::cout << "Repel Vector: ";
-		// std::cout << "(";
-		// std::cout << repelVector(0,0); std::cout << ", ";
-		// std::cout << repelVector(1,0); std::cout << ")";
-		// std::cout << std::endl;
+		///*** Check for obstacles in the region of the goal. ***///
 
-		// std::cout << "Attract Vector: ";
-		// std::cout << "(";
-		// std::cout << attractVector(0,0); std::cout << ", ";
-		// std::cout << attractVector(1,0); std::cout << ")";
-		// std::cout << std::endl;
+		// Is obstacle in front of us?
+		bool obstacleInFront = false;
+		int numberOfObstacles = 0;
 
-		// std::cout << "Inertia Vector: ";
-		// std::cout << "(";
-		// std::cout << inertiaVector(0,0); std::cout << ", ";
-		// std::cout << inertiaVector(1,0); std::cout << ")";
-		// std::cout << std::endl;
+		// Iterate through the obstacle set and pull out the near obstacles.
+		for(int i = 0; i < _obstacles.cols(); i++){
+			// Extract range and angle data.
+			float range, angle;		
+			range = _obstacles(0,i);
+			angle = _obstacles(1,i);
 
-		steeringVector = goalVector - repelVector + attractVector + inertiaVector;
+			// The keepout angle is a function of range and angle. As the goal gets closer,
+			// the angular width gets larger.
+			float angularKeepout = atan2(1.0*ROBOT_RADIUS_IN_METERS, goalRange);
+			if(angularKeepout < DEG2RAD(10.0)) angularKeepout = DEG2RAD(10.0);
 
-		// std::cout << "Steering Vector: ";
-		// std::cout << "(";
-		// std::cout << steeringVector(0,0); std::cout << ", ";
-		// std::cout << steeringVector(1,0); std::cout << ")";
-		// std::cout << std::endl;
+			if(fabs(angle - goalBearing) < angularKeepout){
+				// Ensure that you are seeing some obstacles in the direction of the goal,
+				// but just that none of them are in the range.
+				numberOfObstacles++;
+				if(range < goalRange){
+					obstacleInFront = true;
+					break;
+				}
+			}
+		}
 
-		// steeringVector.normalize();
-		// std::cout << "Steering Vector(Normalized): ";
-		// std::cout << "(";
-		// std::cout << steeringVector(0,0); std::cout << ", ";
-		// std::cout << steeringVector(1,0); std::cout << ")";
-		// std::cout << std::endl;
+
+		// If there is an obstacle, then use full godzila.
+		if(obstacleInFront){
+			goalInRange = false;
+		}
+		// Otherwise, use the pseudo straight line planner.
+		else{
+			if(numberOfObstacles > 3){
+				goalInRange = true;
+			}
+			else{
+				goalInRange = false;
+			}
+		}
+
+		// If the goal is in the range, activate basic straight line behavior.
+		if(goalInRange){
+			steeringVector = goalVector;
+		}
+		else{
+			steeringVector = goalVector - repelVector + attractVector + inertiaVector;
+		}
 
 		// Compute angular velocity.
 		float w = computeAngularVelocity(steeringVector);
 		// Compute linear velocity.
-		float v = computeLinearVelcoity(w);
+		float v = computeLinearVelocity(w);
 
 		// Set command.
 		_command.vx = v;
+		// _command.vx = 0.3*_vmax;
 		_command.wz = w;
+		// _command.wz = 0.15;
 
 	}
 
@@ -640,13 +660,19 @@ namespace godzila{
 		// std::cout << "headingAngle: [" << headingAngle << "] ";
 
 		// Normalize the heading angle.
-		float headingMag = headingAngle/M_PI;
+		float headingMag = 5*(headingAngle/M_PI);
 		// std::cout << "headingMag: [" << headingMag << "] ";
 		// std::cout << std::endl;
 
 		// Use angular velocity limits.
-		if(headingMag > 0) return headingMag*fabs(_wmax);
-		else return headingMag*fabs(_wmin);
+		if(headingMag > 0){
+			if(headingMag > 1) headingMag = 1;
+			return headingMag*fabs(_wmax);
+		}
+		else{
+			if(headingMag < -1) headingMag = -1;
+			return headingMag*fabs(_wmin);
+		}
 	}
 
 	/*!
@@ -654,7 +680,7 @@ namespace godzila{
 	* \param[in] w 		The desired angular velocity.
 	* \return 			The linear velocity command in meters/second.
 	*/
-	float Planner::computeLinearVelcoity(float w){
+	float Planner::computeLinearVelocity(float w){
 		// Grab the minimum range obstacle.
 		// Possibly change the obstacle range. Scale ranges and then find min.
 		float minRange = _obstacles.row(0).minCoeff();

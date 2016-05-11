@@ -1,7 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/naonav.dir/main.cpp.o"
   "CMakeFiles/naonav.dir/src/godzila.cpp.o"
-  "CMakeFiles/naonav.dir/src/naopp.cpp.o"
   "sdk/bin/naonav.pdb"
   "sdk/bin/naonav"
   "sdk/bin/naonav.pdb"

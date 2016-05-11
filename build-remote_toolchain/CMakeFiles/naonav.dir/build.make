@@ -95,41 +95,16 @@ CMakeFiles/naonav.dir/src/godzila.cpp.o.provides: CMakeFiles/naonav.dir/src/godz
 
 CMakeFiles/naonav.dir/src/godzila.cpp.o.provides.build: CMakeFiles/naonav.dir/src/godzila.cpp.o
 
-CMakeFiles/naonav.dir/src/naopp.cpp.o: CMakeFiles/naonav.dir/flags.make
-CMakeFiles/naonav.dir/src/naopp.cpp.o: ../src/naopp.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/crrl-user1/code_projects/nao_worktree/naonav/build-remote_toolchain/CMakeFiles $(CMAKE_PROGRESS_3)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/naonav.dir/src/naopp.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/naonav.dir/src/naopp.cpp.o -c /home/crrl-user1/code_projects/nao_worktree/naonav/src/naopp.cpp
-
-CMakeFiles/naonav.dir/src/naopp.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/naonav.dir/src/naopp.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/crrl-user1/code_projects/nao_worktree/naonav/src/naopp.cpp > CMakeFiles/naonav.dir/src/naopp.cpp.i
-
-CMakeFiles/naonav.dir/src/naopp.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/naonav.dir/src/naopp.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/crrl-user1/code_projects/nao_worktree/naonav/src/naopp.cpp -o CMakeFiles/naonav.dir/src/naopp.cpp.s
-
-CMakeFiles/naonav.dir/src/naopp.cpp.o.requires:
-.PHONY : CMakeFiles/naonav.dir/src/naopp.cpp.o.requires
-
-CMakeFiles/naonav.dir/src/naopp.cpp.o.provides: CMakeFiles/naonav.dir/src/naopp.cpp.o.requires
-	$(MAKE) -f CMakeFiles/naonav.dir/build.make CMakeFiles/naonav.dir/src/naopp.cpp.o.provides.build
-.PHONY : CMakeFiles/naonav.dir/src/naopp.cpp.o.provides
-
-CMakeFiles/naonav.dir/src/naopp.cpp.o.provides.build: CMakeFiles/naonav.dir/src/naopp.cpp.o
-
 # Object files for target naonav
 naonav_OBJECTS = \
 "CMakeFiles/naonav.dir/main.cpp.o" \
-"CMakeFiles/naonav.dir/src/godzila.cpp.o" \
-"CMakeFiles/naonav.dir/src/naopp.cpp.o"
+"CMakeFiles/naonav.dir/src/godzila.cpp.o"
 
 # External object files for target naonav
 naonav_EXTERNAL_OBJECTS =
 
 sdk/bin/naonav: CMakeFiles/naonav.dir/main.cpp.o
 sdk/bin/naonav: CMakeFiles/naonav.dir/src/godzila.cpp.o
-sdk/bin/naonav: CMakeFiles/naonav.dir/src/naopp.cpp.o
 sdk/bin/naonav: CMakeFiles/naonav.dir/build.make
 sdk/bin/naonav: /home/crrl-user1/naoprojects/naoqi-sdk-2.1.0.19-linux64/lib/libalproxies.so
 sdk/bin/naonav: /home/crrl-user1/naoprojects/naoqi-sdk-2.1.0.19-linux64/lib/libalcommon.so
@@ -161,15 +136,13 @@ CMakeFiles/naonav.dir/build: sdk/bin/naonav
 # Object files for target naonav
 naonav_OBJECTS = \
 "CMakeFiles/naonav.dir/main.cpp.o" \
-"CMakeFiles/naonav.dir/src/godzila.cpp.o" \
-"CMakeFiles/naonav.dir/src/naopp.cpp.o"
+"CMakeFiles/naonav.dir/src/godzila.cpp.o"
 
 # External object files for target naonav
 naonav_EXTERNAL_OBJECTS =
 
 CMakeFiles/CMakeRelink.dir/naonav: CMakeFiles/naonav.dir/main.cpp.o
 CMakeFiles/CMakeRelink.dir/naonav: CMakeFiles/naonav.dir/src/godzila.cpp.o
-CMakeFiles/CMakeRelink.dir/naonav: CMakeFiles/naonav.dir/src/naopp.cpp.o
 CMakeFiles/CMakeRelink.dir/naonav: CMakeFiles/naonav.dir/build.make
 CMakeFiles/CMakeRelink.dir/naonav: /home/crrl-user1/naoprojects/naoqi-sdk-2.1.0.19-linux64/lib/libalproxies.so
 CMakeFiles/CMakeRelink.dir/naonav: /home/crrl-user1/naoprojects/naoqi-sdk-2.1.0.19-linux64/lib/libalcommon.so
@@ -200,7 +173,6 @@ CMakeFiles/naonav.dir/preinstall: CMakeFiles/CMakeRelink.dir/naonav
 
 CMakeFiles/naonav.dir/requires: CMakeFiles/naonav.dir/main.cpp.o.requires
 CMakeFiles/naonav.dir/requires: CMakeFiles/naonav.dir/src/godzila.cpp.o.requires
-CMakeFiles/naonav.dir/requires: CMakeFiles/naonav.dir/src/naopp.cpp.o.requires
 .PHONY : CMakeFiles/naonav.dir/requires
 
 CMakeFiles/naonav.dir/clean:
